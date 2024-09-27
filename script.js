@@ -8,7 +8,7 @@ let result;
 console.log(result = (num + "").split("").reduce((x, n) => x * n, 1));
 
 // 3) Полученный результат возвести в степень 3, используя только 1 оператор (Math.pow не подходит)
-result = result ** 3;
+result **= 3;
 
 // 4) Вывести в консоль первые 2 цифры полученного числа
 console.log((result + "").slice(0, 2));
