@@ -1,14 +1,26 @@
-/* Урок № 2. Усложненное задание */
+/* Урок № 3. Усложненное задание */
+'use strict';
 
-// 1) Создать переменную num со значением 266219 (тип данных число)
-const num = 266219;
-let result;
+const ruDaysWeek = "понедельник, вторник, среда, четверг, пятница, суббота, воскресенье";
+const enDaysWeek = "Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday";
+const daysWeek = [["ru", ruDaysWeek], ["en", enDaysWeek]];
 
-// 2) Вывести в консоль произведение (умножение) цифр этого числа
-console.log(result = (num + "").split("").reduce((x, n) => x * n, 1));
+let lang = confirm("Дни недели выводить на английском языке ?") ? "en" : "ru";
 
-// 3) Полученный результат возвести в степень 3, используя только 1 оператор (Math.pow не подходит)
-result **= 3;
+if (lang == "en") console.log(enDaysWeek);
+else console.log(ruDaysWeek);
 
-// 4) Вывести в консоль первые 2 цифры полученного числа
-console.log((result + "").slice(0, 2));
+switch (lang) {
+    case "en":
+        console.log(enDaysWeek);
+        break;
+    default:
+        console.log(ruDaysWeek);
+}
+
+console.log(daysWeek[daysWeek.findIndex(el => el[0] == lang)][1]);
+
+let namePerson = prompt("Введите Ваше имя:") || "студент";
+console.log(namePerson == "Артем" ? "директор"
+    : namePerson == "Александр" ? "преподаватель"
+        : "студент");
