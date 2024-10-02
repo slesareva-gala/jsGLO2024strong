@@ -1,26 +1,22 @@
 /* Урок № 3. Усложненное задание */
 'use strict';
 
-const ruDaysWeek = "понедельник, вторник, среда, четверг, пятница, суббота, воскресенье";
-const enDaysWeek = "Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday";
-const daysWeek = [["ru", ruDaysWeek], ["en", enDaysWeek]];
+// замена части строк после 30 символа на '...'
+const cutChar30 = (str) => {
+    const maxCount = 30;
 
-let lang = confirm("Дни недели выводить на английском языке ?") ? "en" : "ru";
+    if (typeof (str) == "string") {
+        str = str.trim();
+        if (str.length > maxCount) {
+            str = str.slice(0, maxCount) + '...';
+        }
+    } else {
+        console.error(`Параметр str функции cutChar30(str) должен иметь тип string \n передано: str = ${str},  тип: ${typeof (str)}`);
+    }
 
-if (lang == "en") console.log(enDaysWeek);
-else console.log(ruDaysWeek);
+    return str;
+};
 
-switch (lang) {
-    case "en":
-        console.log(enDaysWeek);
-        break;
-    default:
-        console.log(ruDaysWeek);
-}
-
-console.log(daysWeek[daysWeek.findIndex(el => el[0] == lang)][1]);
-
-let namePerson = prompt("Введите Ваше имя:") || "студент";
-console.log(namePerson == "Артем" ? "директор"
-    : namePerson == "Александр" ? "преподаватель"
-        : "студент");
+cutChar30(100000);
+console.log(cutChar30('           Строка маленькая             '));
+console.log(cutChar30('  Строка обрезается на символе30, а следом ... ')); 
