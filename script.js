@@ -1,22 +1,16 @@
-/* Урок № 4. Усложненное задание */
+/* Урок № 5. Усложненное задание 1*/
 'use strict';
 
-// замена части строк после 30 символа на '...'
-const cutChar30 = (str) => {
-    const maxCount = 30;
+let varNumber;
 
-    if (typeof (str) == "string") {
-        str = str.trim();
-        if (str.length > maxCount) {
-            str = str.slice(0, maxCount) + '...';
-        }
-    } else {
-        console.error(`Параметр str функции cutChar30(str) должен иметь тип string \n передано: str = ${str},  тип: ${typeof (str)}`);
-    }
-
-    return str;
+const isNumber = function (str) {
+    return !isNaN(parseFloat(str)) && isFinite(str);
 };
 
-cutChar30(100000);
-console.log(cutChar30('           Строка маленькая             '));
-console.log(cutChar30('  Строка обрезается на символе30, а следом ... ')); 
+// сохранять в переменную ответ пользователя после проверки на число именно как число
+do {
+    varNumber = (prompt("Введите число:", "0") || "0").trim();
+} while (!isNumber(varNumber));
+
+console.log('varNumber:', varNumber, typeof (varNumber));
+console.log('+varNumber:', +varNumber, typeof (+varNumber));
