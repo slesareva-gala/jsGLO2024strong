@@ -21,7 +21,7 @@ DomElement.prototype.attach = function (parent) {
         '.': { tag: 'div', attr: 'class' },
         '#': { tag: 'p', attr: 'id' },
     };
-    let element = {};
+    let element;
 
     if (tag in dictonary) {
         const toCSSstyle = (s) => (s.replace(/[A-Z]/g, '-$&').toLowerCase());
@@ -37,15 +37,41 @@ DomElement.prototype.attach = function (parent) {
     return element;
 };
 
-const obj = document.querySelector('.container')
-const myP = new DomElement('#my-p', '150px', 'fit-content', 'pink', '1.2rem');
-const myDiv = new DomElement();
+const move = function (e) {
+    const step = 10;
 
-myDiv.selector = '.my-div';
-myDiv.width = '150px';
-myDiv.height = '150px';
-myDiv.bg = '#e614ed69';
-myDiv.fontSize = '20px';
+    let x = parseInt(this.style.left) || 0;
+    let width = parseInt(this.style.width);
+    let y = parseInt(this.style.top) || 0;
+    let height = parseInt(this.style.height);
 
-myP.attach(obj).textContent = 'это параграф, ';
-myDiv.attach(obj).textContent = 'а это дивный блок';
+    switch (e.key) {
+        case 'ArrowRight':
+            x = (x + width + step) > window.innerWidth ? window.innerWidth - width : x + step;
+            break;
+        case 'ArrowLeft':
+            x = x < step ? 0 : x - step;
+            break;
+        case 'ArrowDown':
+            y = (y + height + step) > window.innerHeight ? window.innerHeight - height : y + step;
+            break;
+        case 'ArrowUp':
+            y = y < step ? 0 : y - step;
+            break;
+    }
+    this.style.left = x + 'px';
+    this.style.top = y + 'px';
+}
+
+const start = function () {
+    const element = this.attach();
+
+    if (element) document.addEventListener('keydown', move.bind(element));
+}
+
+const square = new DomElement('.', '100px', '100px', 'pink');
+square.position = 'absolute';
+square.left = '0';
+square.top = '0';
+
+document.addEventListener('DOMContentLoaded', start.bind(square))
