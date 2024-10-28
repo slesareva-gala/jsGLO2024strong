@@ -1,77 +1,53 @@
 "use strict";
 
-const elTimepiece = document.querySelector('.timepiece');
-const txtFormat = elTimepiece.querySelectorAll('p');
-
-const currentDate = () => {
-    const date = new Date();
-    return {
-        day: date.getDate(),
-        month: date.getMonth(),
-        year: date.getFullYear(),
-        dayWeek: date.getDay(),
-        hours: date.getHours(),
-        minutes: date.getMinutes(),
-        second: date.getSeconds(),
-    }
+const DomElement = function (
+    selector = '',
+    width = '0px',
+    height = '0px',
+    bg = 'rgba(0, 0, 0, 0)',
+    fontSize = '1rem'
+) {
+    this.selector = selector.replaceAll(' ', '');
+    this.width = width.replaceAll(' ', '');
+    this.height = height.replaceAll(' ', '');
+    this.bg = bg.replaceAll(' ', '');
+    this.fontSize = fontSize.replaceAll(' ', '');
 };
 
-// формат а)
-const toFormat1 = (oDate) => {
-    let endH, endM, endS;
-
-    // формирование окончаний слов по числу
-    const ending = (num, aEnding) => {
-        const lastNum = +(num + '').slice(-1);
-
-        return aEnding[
-            (lastNum === 1 && num !== 11) ? 0 :
-                (lastNum > 1 && lastNum < 5 && ![12, 13, 14].includes(num)) ? 1 : 2
-        ];
+// добавление элемента класса DomElement на страницу
+DomElement.prototype.append = function () {
+    const tag = this.selector[0];
+    const attr = this.selector.slice(1);
+    const dictonary = {
+        '.': { tag: 'div', attr: 'class' },
+        '#': { tag: 'p', attr: 'id' },
     };
+    let element = {};
 
-    // переводим название дня недели в строку
-    oDate.dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг',
-        'Пятница', 'Суббота', 'Воскресенье'][(oDate.dayWeek) ? oDate.dayWeek - 1 : 6];
-    // переводим названия месяцев в родительном падеже
-    oDate.month = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-        'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'][oDate.month];
+    if (tag in dictonary) {
+        // приведение названия стиля JS в соответствие CSS
+        const toCSSstyle = (s) => (s.replace(/[A-Z]/g, '-' + '$&').toLowerCase());
 
-    // окончания названий единиц времени
-    endH = ending(oDate.hours, ['', 'а', 'ов']);
-    endM = ending(oDate.minutes, ['а', 'ы', '']);
-    endS = ending(oDate.second, ['а', 'ы', '']);
+        element = document.createElement(dictonary[tag].tag);
+        element.setAttribute(dictonary[tag].attr, toCSSstyle(attr));
+        element.style.cssText = Object.keys(this)
+            .filter(key => key !== 'selector')
+            .reduce((text, key) => text += `${key === 'bg' ? 'background' : toCSSstyle(key)}: ${this[key]}; `, '');
 
-    txtFormat[0].innerHTML = `Сегодня ${oDate.dayWeek},
-    ${oDate.day} ${oDate.month} ${oDate.year} года,
-    ${oDate.hours} час${endH} ${oDate.minutes} минут${endM} ${oDate.second} секунд${endS}`;
-};
-
-// формат б)
-const toFormat2 = (oDate) => {
-    const leadingZero = (num) => ('0' + num + ' ').slice(-3, -1);
-
-    // начинаем нумерацию месяцев с 1
-    oDate.month++;
-    // проставляем ведущие нули
-    for (let key in oDate) {
-        if ('day,month,hours,minutes,second,'.includes(key + ',')) {
-            oDate[key] = leadingZero(oDate[key]);
-        }
+        document.body.appendChild(element);
     }
-
-    txtFormat[1].innerHTML = `<b>${oDate.day}.${oDate.month}.${oDate.year}` +
-        ` - ${oDate.hours}:${oDate.minutes}:${oDate.second}</b>`;
+    return element;
 };
 
-// первоначальный вывод 
-toFormat1(currentDate());
-toFormat2(currentDate());
+const obj = new DomElement('#my-p', '150px', 'fit-content', 'pink', '1.2rem');
 
-// запускаем обновление каждую секунду
-// для останова clearInterval(idTimer)
-let idTimer = setInterval(() => {
-    // выводим текущие значения
-    toFormat1(currentDate());
-    toFormat2(currentDate());
-}, 1000);
+obj.paddingLeft = '10px';
+obj.paddingRight = '10px';
+obj.fontStyle = 'italic';
+obj.color = 'blue';
+obj.append().textContent = 'Это параграф ';
+
+obj.selector = '.myDiv';
+obj.height = '150px';
+obj.padding = '10px';
+obj.append().textContent = 'и в том же стиле дивный блок';
