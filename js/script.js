@@ -7,15 +7,14 @@ const DomElement = function (
     bg = 'rgba(0, 0, 0, 0)',
     fontSize = '1rem'
 ) {
-    this.selector = selector.replaceAll(' ', '');
-    this.width = width.replaceAll(' ', '');
-    this.height = height.replaceAll(' ', '');
-    this.bg = bg.replaceAll(' ', '');
-    this.fontSize = fontSize.replaceAll(' ', '');
+    this.selector = selector;
+    this.width = width;
+    this.height = height;
+    this.bg = bg;
+    this.fontSize = fontSize;
 };
 
-// добавление элемента класса DomElement на страницу
-DomElement.prototype.append = function () {
+DomElement.prototype.attach = function (parent) {
     const tag = this.selector[0];
     const attr = this.selector.slice(1);
     const dictonary = {
@@ -25,29 +24,28 @@ DomElement.prototype.append = function () {
     let element = {};
 
     if (tag in dictonary) {
-        // приведение названия стиля JS в соответствие CSS
-        const toCSSstyle = (s) => (s.replace(/[A-Z]/g, '-' + '$&').toLowerCase());
+        const toCSSstyle = (s) => (s.replace(/[A-Z]/g, '-$&').toLowerCase());
 
         element = document.createElement(dictonary[tag].tag);
-        element.setAttribute(dictonary[tag].attr, toCSSstyle(attr));
+        element.setAttribute(dictonary[tag].attr, attr);
         element.style.cssText = Object.keys(this)
             .filter(key => key !== 'selector')
             .reduce((text, key) => text += `${key === 'bg' ? 'background' : toCSSstyle(key)}: ${this[key]}; `, '');
 
-        document.body.appendChild(element);
+        (parent instanceof Element ? parent : document.body).appendChild(element);
     }
     return element;
 };
 
-const obj = new DomElement('#my-p', '150px', 'fit-content', 'pink', '1.2rem');
+const obj = document.querySelector('.container')
+const myP = new DomElement('#my-p', '150px', 'fit-content', 'pink', '1.2rem');
+const myDiv = new DomElement();
 
-obj.paddingLeft = '10px';
-obj.paddingRight = '10px';
-obj.fontStyle = 'italic';
-obj.color = 'blue';
-obj.append().textContent = 'Это параграф ';
+myDiv.selector = '.my-div';
+myDiv.width = '150px';
+myDiv.height = '150px';
+myDiv.bg = '#e614ed69';
+myDiv.fontSize = '20px';
 
-obj.selector = '.myDiv';
-obj.height = '150px';
-obj.padding = '10px';
-obj.append().textContent = 'и в том же стиле дивный блок';
+myP.attach(obj).textContent = 'это параграф, ';
+myDiv.attach(obj).textContent = 'а это дивный блок';
