@@ -74,4 +74,9 @@ square.position = 'absolute';
 square.left = '0';
 square.top = '0';
 
-document.addEventListener('DOMContentLoaded', start.bind(square))
+document.addEventListener('DOMContentLoaded', () => {
+    const element = square.attach()
+
+    if (element) document.addEventListener('keydown', move.bind(element));
+    console.log(1)
+})
