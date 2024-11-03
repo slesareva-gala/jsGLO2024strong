@@ -1,14 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<br lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./js/script.js"></script>
-    <title>lesson16</title>
+    <title>Мои соседи</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src='./js/script.js' defer></script>
 </head>
+<div class='header'>Мои соседи</div>
 
-<body>
+<h3>Новый сосед</h3>
+
+<form id="neighbor-form">
+    <select id="neighbor-type">
+        <option value="adult">Взрослый</option>
+        <option value="kid">Ребенок</option>
+    </select>
+
+    <div class="neighbor">
+        <div class="block_float">
+            <label>Фaмилия <input type="text" id="surname" /></label>
+            <label>Имя <input type="text" id="name" /></label>
+            <label>Отчество <input type="text" id="patronymic" /></label>
+        </div>
+
+        <div class="block_float">
+            <label>дата рождения <input type="date" name="date-birth" id="date-birth"
+                    value@Model.EndDate.ToString("yyyy-MM-dd") /></label>
+            <label title="номера квартир с 1 по 80">
+                номер квартиры
+                <input type="number" name="flat" id="flat" />
+            </label>
+            <label>пол <input type="radio" name="gender" value="false" checked id="gender1" />мужской</label>
+            <label><input type="radio" name="gender" value="true" id="gender0" />женский</label>
+        </div>
+    </div>
+    <div class="adult">
+        <label class="telephone" title="номера телефонов">телефон
+            <input type="text" id="telephone" placeholder="номера телефонов">
+        </label>
+        <label class="notes" title="кем работает и прочие заметки">
+            заметки
+            <input type="text" id="notes" placeholder="кем работает, увлечения и прочее">
+        </label>
+    </div>
+
+    <div class="kid">
+        <div class="pet">
+            <label>питомец
+                <select name="pet" id="pet">
+                    <option value="нет" selected>нет</option>
+                    <option value="кошка">кошка</option>
+                    <option value="собака">собака</option>
+                    <option value="птичка">птичка</option>
+                    <option value="иной">иной</option>
+                </select>
+            </label>
+        </div>
+        <div class="block_float hobbies">
+            <label>увлечения <input type="checkbox" name="lang[]" value="рисование" id="hobbies0" />рисование</label>
+            <label><input type="checkbox" name="lang[]" value="спорт" id="hobbies1" />спорт</label>
+            <label><input type="checkbox" name="lang[]" value="танцы" id="hobbies2" />танцы</label>
+            <label><input type="checkbox" name="lang[]" value="музыка" id="hobbies3" />музыка</label>
+            <label><input type="checkbox" name="lang[]" value="JavaSript" id="hobbies4" />JavaSript</label>
+            <label><input type="checkbox" name="lang[]" value="другое" id="hobbies5" />другое</label>
+        </div>
+    </div>
+
+    <button class="button-submit" id="add" type="submit">Сохранить</button>
+</form>
+<table ellspacing="2" border="1" cellpadding="5">
+    <tbody>
+        <tr>
+            <th>номер квартиры</th>
+            <th>фaмилия имя отчество </th>
+            <th>пол</th>
+            <th>дата рождения</th>
+            <th>телефоны</th>
+            <th>заметки</th>
+            <th>питомец</th>
+            <th>увлечения</th>
+            <th>удалить</th>
+        </tr>
+    </tbody>
+</table>
 </body>
 
 </html>

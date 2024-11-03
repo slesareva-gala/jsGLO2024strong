@@ -1,0 +1,169 @@
+.header {
+    display: block;
+    position: relative;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#neighbor-type {
+    display: block;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #444;
+    line-height: 1.3;
+    padding: .6em 1.4em .5em .8em;
+    width: max-content;
+    /* max-width: 100%; */
+    box-sizing: border-box;
+    margin: 0;
+    border: 1px solid #aaa;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, .04);
+    border-radius: .5em;
+    appearance: none;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.neighbor-type:hover {
+    border-color: #888;
+}
+
+.neighbor-type:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    color: #222;
+    outline: none;
+}
+
+.neighbor,
+.adult,
+.kid {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.kid {
+    display: none;
+}
+
+label {
+    display: block;
+    position: relative;
+    margin: 0.3rem;
+    font-size: 1rem;
+    font-family: sans-serif;
+    line-height: 1.3;
+}
+
+.block_float {
+    position: relative;
+    clear: both;
+}
+
+.block_float label {
+    float: left;
+}
+
+label input,
+.pet select {
+    display: inline-block;
+    position: relative;
+    clear: both;
+
+    font-size: 1rem;
+    font-weight: bold;
+    font-style: italic;
+}
+
+#telephone,
+#notes {
+    width: 45em;
+}
+
+#surname,
+#name,
+#patronymic {
+    width: 12em;
+}
+
+#flat {
+    width: 5em;
+}
+
+.pet select {
+    width: 18em;
+}
+
+.hobbies {
+    display: flex;
+    width: max-content;
+}
+
+TABLE {
+    width: 300px;
+    border-collapse: collapse;
+}
+
+TD,
+TH {
+    padding: .5rem;
+    border: 1px solid black;
+}
+
+TH {
+    background: rgba(200, 200, 200, 1);
+}
+
+
+/* кнопка сохранить */
+.button-submit {
+    display: block;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 10em;
+    border: 1px solid black;
+    font-size: 1.2rem;
+    border-radius: 25px;
+    clear: both;
+}
+
+.button-submit:hover {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(30, 144, 255, 1);
+    border: 1px solid blue;
+    cursor: pointer;
+}
+
+.button-submit:active:before {
+    color: rgba(57, 200, 57, 1);
+    transition: .5s linear;
+    background-color: rgba(150, 150, 150, 0.5);
+}
+
+
+/* - кнопока удалить */
+.button-del {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4em;
+    height: 1.4em;
+    background-image: url('../image/delete.png');
+    opacity: 0.5;
+    background-size: contain;
+}
+
+.button-del:hover {
+    opacity: 1;
+    cursor: pointer;
+}
