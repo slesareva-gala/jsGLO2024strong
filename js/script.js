@@ -8,7 +8,11 @@ const neighborForm = {
         type: document.getElementById('neighbor-type'),
         adult: document.querySelector('.adult'),
         kid: document.querySelector('.kid'),
-        hobbies: document.querySelector('.hobbies')
+        hobbies: document.querySelector('.hobbies'),
+        form: document.getElementById('neighbor-form'),
+        header: document.querySelector('.header'),
+        section: document.querySelector('.neighbor-new'),
+        formButton: document.querySelector('.form-button'),
     },
 
     refresh: function () {
@@ -101,10 +105,10 @@ const neighborTable = {
                 <td>${line.fullName}</td>
                 <td>${line.gender ? 'мужской' : 'женский'}</td>
                 <td>${line.dateBirthDMY}</td>
-                <td>${isAdult ? line.telephone : ''}</td>
+                <td>${isAdult ? line.telephone : ' '}</td>
                 <td>${isAdult ? line.notes : 'ребенок'}</td>
-                <td>${isAdult ? '' : line.petName}</td>
-                <td>${isAdult ? '' : line.hobbiesList}</td >
+                <td>${isAdult ? ' ' : line.petName}</td>
+                <td>${isAdult ? ' ' : line.hobbiesList}</td >
                 <td align="middle">
                     <div class="button-del" id="${obj.id}"></div>
                 </td>
@@ -227,11 +231,29 @@ const storage = {
     }
 }
 
+// открытие/закрытие блока ввода нового соседа
+neighborForm.el.formButton.addEventListener('click', (e) => {
+    const formButton = e.target;
+    const toOpen = !formButton.classList.contains('open');
+
+    formButton.classList.toggle('open');
+    neighborForm.el.header.classList.toggle('open');
+    neighborForm.el.section.classList.toggle('open');
+
+    if (toOpen) {
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        })
+    }
+})
+
 // выбор блока форм для ввода нового соседа согласно выбранного типа
 neighborForm.el.type.addEventListener('change', (e) => { neighborForm.refresh() });
 
 // сохранение данных из формы ввода
-document.querySelector('#neighbor-form').addEventListener('submit', (event) => {
+neighborForm.el.form.addEventListener('submit', (event) => {
     event.preventDefault();
 
     if (neighborForm.validate()) {
