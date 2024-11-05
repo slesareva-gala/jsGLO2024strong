@@ -118,6 +118,37 @@ const neighborTable = {
     },
 }
 
+// операции с localStorage
+const storage = {
+    is: ((type) => {    // проверка на доступность
+        try {
+            var storage = window[type],
+                x = '__storage_test__';
+            storage.setItem(x, x);
+            storage.removeItem(x);
+            return true;
+        }
+        catch (e) {
+            return false;
+        }
+    })('localStorage'),
+
+    save: neighbors => {
+        if (storage.is) localStorage.setItem('neighbors', JSON.stringify(neighbors));
+    },
+    read: () => {
+        return (storage.is && JSON.parse(localStorage.getItem('neighbors')) || []);
+    },
+    add: function (line) {
+        const neighbors = this.read();
+        neighbors.push(line);
+        this.save(neighbors);
+    },
+    delete: function (id) {
+        this.save(this.read().filter(obj => obj.id !== id));
+    }
+}
+
 // базовый класс: сосед
 class Neighbor {
     static minFlat = 1;
@@ -199,37 +230,6 @@ class Kid extends Neighbor {
 }
 Kid.petDict.push(...[...neighborForm.el.kid.querySelectorAll('.pet option')].map(el => el.value))
 Kid.hobbiesDict.push(...[...neighborForm.el.kid.querySelectorAll('.hobbies input')].map(el => el.value))
-
-// операции с localStorage
-const storage = {
-    is: ((type) => {    // проверка на доступность
-        try {
-            var storage = window[type],
-                x = '__storage_test__';
-            storage.setItem(x, x);
-            storage.removeItem(x);
-            return true;
-        }
-        catch (e) {
-            return false;
-        }
-    })('localStorage'),
-
-    save: neighbors => {
-        if (storage.is) localStorage.setItem('neighbors', JSON.stringify(neighbors));
-    },
-    read: () => {
-        return (storage.is && JSON.parse(localStorage.getItem('neighbors')) || []);
-    },
-    add: function (line) {
-        const neighbors = this.read();
-        neighbors.push(line);
-        this.save(neighbors);
-    },
-    delete: function (id) {
-        this.save(this.read().filter(obj => obj.id !== id));
-    }
-}
 
 // открытие/закрытие блока ввода нового соседа
 neighborForm.el.formButton.addEventListener('click', (e) => {
