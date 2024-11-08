@@ -1,110 +1,20 @@
 <!DOCTYPE html>
+<br lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мои соседи</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Урок 19</title>
     <script src='./js/script.js' defer></script>
 </head>
 
 <body>
-    <div class="container">
-        <div class='header'>
-            <div class="header-img"></div>
-            <div class="form-button">НОВЫЙ СОСЕД</div>
+    <label>Вваодите текст
+        <input type="text" id="get_input" placeholder="вводите текст" />
+    </label>
+    <p>результат ввода:<span id="out_input"></span></p>
 
-            <section class="neighbor-new">
-                <form id="neighbor-form" class="flex-column">
-                    <div class="flex-row">
-                        <select id="neighbor-type">
-                            <option value="adult">ВЗРОСЛЫЙ</option>
-                            <option value="kid">РЕБЕНОК</option>
-                        </select>
-
-                        <div class="neighbor-flat-fio flex-column">
-                            <label title="номера квартир с 1 по 80">
-                                <span>квартира</span>
-                                <input type="number" name="flat" id="flat" />
-                            </label>
-                            <label><span>Фaмилия</span><input type="text" id="surname" /></label>
-                            <label><span>Имя</span><input type="text" id="name" /></label>
-                            <label><span>Отчество</span><input type="text" id="patronymic" /></label>
-                        </div>
-                        <div class="multi flex-column">
-                            <div class="neighbor-gender flex-row">
-                                <label><span>пол</span><input type="radio" name="gender" value="false" checked
-                                        id="gender1" />мужской</label>
-                                <label><input type="radio" name="gender" value="true" id="gender0" />женский</label>
-                            </div>
-                            <label><span>дата рождения</span><input type="date" name="date-birth" id="date-birth"
-                                    value@Model.EndDate.ToString("yyyy-MM-dd") /></label>
-                            <div class="adult flex-column">
-                                <label class="telephone" title="номера телефонов"><span>телефон</span>
-                                    <input type="text" id="telephone" placeholder="номера телефонов">
-                                </label>
-                                <label class="notes" title="кем работает и прочие заметки">
-                                    <span>заметки</span>
-                                    <input type="text" id="notes" placeholder="кем работает и т.д.">
-                                </label>
-                            </div>
-                            <div class="kid flex-column">
-                                <div class="pet">
-                                    <label><span>питомец</span>
-                                        <select name="pet" id="pet">
-                                            <option value="нет" selected>нет</option>
-                                            <option value="кошка">кошка</option>
-                                            <option value="собака">собака</option>
-                                            <option value="птичка">птичка</option>
-                                            <option value="иной">иной</option>
-                                        </select>
-                                    </label>
-                                </div>
-                                <div class="hobbies flex-row">
-                                    <span>увлечения</span>
-                                    <div class="flex-column">
-                                        <label><input type="checkbox" name="lang[]" value="рисование"
-                                                id="hobbies0" /><span>рисование</span></label>
-                                        <label><input type="checkbox" name="lang[]" value="спорт" id="hobbies1" />
-                                            <span>спорт</span> </label>
-                                        <label><input type="checkbox" name="lang[]" value="танцы" id="hobbies2" />
-                                            <span>танцы</span></label>
-                                        <label><input type="checkbox" name="lang[]" value="музыка"
-                                                id="hobbies3" /><span>музыка</span></label>
-                                        <label><input type="checkbox" name="lang[]" value="JavaSript"
-                                                id="hobbies4" /><span>JavaSript</span></label>
-                                        <label><input type="checkbox" name="lang[]" value="другое"
-                                                id="hobbies5" /><span>другое</span></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="button-submit" id="add" type="submit">Сохранить</button>
-                </form>
-            </section>
-        </div>
-
-        <section class="neighbor-table">
-
-            <table ellspacing="2" border="1" cellpadding="5">
-                <tbody>
-                    <tr>
-                        <th>номер квартиры</th>
-                        <th>фaмилия имя отчество </th>
-                        <th>пол</th>
-                        <th>дата рождения</th>
-                        <th>телефоны</th>
-                        <th>заметки</th>
-                        <th>питомец</th>
-                        <th>увлечения</th>
-                        <th>удалить</th>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </div>
 </body>
 
 </html>
