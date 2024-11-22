@@ -15,26 +15,35 @@ const getData = (url) => fetch(url)
         return response.json()
     })
 
+const sendDataXMLHR = ({ url, data }) => {
 
-const sendData = ({ url, data }) => fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-    },
-})
-    .then(response => {
-        if (!response.ok) throw new Error(errMessage.send[response.status] + url || response.statusText)
-        return response.json()
-    })
+    let xhr = new XMLHttpRequest();
+    // настраиваем
+    xhr.open("POST", url);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+    // отправляем
+    xhr.send(JSON.stringify(data));
+
+    // ответ
+    xhr.onload = function () {
+        if (xhr.status >= 201 && xhr.status < 400) {
+            console.log('data', xhr.response)
+        } else {
+            console.error(`Ошибка: ${errMessage.send[xhr.status] || xhr.statusText} ${xhr.responseURL}`)
+        }
+    };
+    xhr.onerror = function () {
+        console.error("Ошибка соединения");
+    };
+};
 
 document.addEventListener("DOMContentLoaded", () => {
     getData('db.json')
-        .then(data => sendData({
+        .then(data => sendDataXMLHR({
             url: 'https://jsonplaceholder.typicode.com/posts',
             data
         }))
-        .then(data => console.log('data', data))
         .catch(err => console.error(`Ошибка: ${err.message}`))
 });
 
