@@ -1,5 +1,14 @@
 {
-    "user": "Vlad",
-    "age": 33,
-    "role": "developer"
+  "cars": [
+    {
+      "brand": "bmw",
+      "model": "M5",
+      "price": 51000
+    },
+    {
+      "brand": "volvo",
+      "model": "V90",
+      "price": 61000
+    }
+  ]
 }

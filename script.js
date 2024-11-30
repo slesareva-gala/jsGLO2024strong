@@ -1,52 +1,62 @@
+// Урок 28 Задание 1. Выбери тачку
 "use strict";
 
-const errMessage = {
-    get: {
-        404: 'для чтения ожидалсь файл: db.json',
-    },
-    send: {
-        404: 'сервер приема сообщений не найден: ',
+// применение обработчика ошибок при подключении слушателя на несуществующий элемент
+const cars = document.querySelector('#cars');
+const result = document.querySelector('.result');
+
+// получение по AJAX запросу 
+const getData = () => fetch('./db.json')
+    .then(response => response.json())
+    .catch(() => { return { cars: [] }; });
+
+// вывод результа выбора
+const outChoice = (dataCar) => {
+    if (cars.selectedIndex) {
+        let text = ``;
+        dataCar.forEach((car) => {
+            text += `Тачка ${car.brand} ${car.model}
+            Цена: ${car.price}$
+            `;
+        });
+        result.innerText = text;
+    } else {
+        result.textContent = cars[0].value;
     }
-}
+};
 
-const getData = (url) => fetch(url)
-    .then(response => {
-        if (!response.ok) throw new Error(errMessage.get[response.status] || response.statusText)
-        return response.json()
-    })
+// формирование списка машинок
+const addCars = () => {
+    getData()
+        .then(data => {
+            data.cars.forEach(car => {
+                const option = document.createElement('option');
+                option.textContent = car.brand;
+                option.value = car.brand;
+                cars.append(option);
+            });
+            outChoice();
+        });
+};
 
-const sendDataXMLHR = ({ url, data }) => {
+// отбор бренда машинок
+const selectBrend = (brand) => {
+    getData()
+        .then(data => {
+            const dataCar = data.cars.filter(car => car.brand.includes(brand));
+            outChoice(dataCar);
+        });
+};
 
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        // настраиваем
-        xhr.open("POST", url);
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-
-
-        // ожидаем ответ 
-        xhr.onload = () => resolve(xhr)
-        xhr.onerror = () => reject({ message: `проблемы соединения с сервером ${xhr.responseURL}` })
-
-        // отправляем
-        xhr.send(JSON.stringify(data));
-    })
-        .then(xhr => {
-            if (xhr.status >= 201 && xhr.status < 400) {
-                return xhr.response
-            } else {
-                throw new Error(`${errMessage.send[xhr.status] || xhr.statusText} ${xhr.responseURL}`)
-            }
-        })
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    getData('db.json')
-        .then(dataGet => sendDataXMLHR({
-            url: 'https://jsonplaceholder.typicode.com/posts',
-            data: dataGet
-        }))
-        .then(dataSend => console.log(dataSend))
-        .catch(err => console.error(`Ошибка: ${err.message}`))
+// выбор машинки
+cars.addEventListener('change', (e) => {
+    if (e.target.selectedIndex) {
+        selectBrend(e.target[e.target.selectedIndex].value);
+    } else {
+        outChoice();
+    }
 });
+
+
+addCars();
 
